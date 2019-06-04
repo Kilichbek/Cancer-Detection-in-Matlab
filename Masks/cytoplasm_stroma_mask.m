@@ -1,4 +1,4 @@
-function [cyto_mask,stroma_mask,overlay] = cytoplasm_stroma_mask(img, black_mask,nuclei_mask,cyan,se_open,se_dil)
+function [cyto_mask,stroma_mask,overlay] = cytoplasm_stroma_mask(img, black_mask,nuclei_msk,cyan,se_open,se_dil)
 
 % set random generator to default;
 rng('default');
@@ -11,7 +11,7 @@ end
 
 % Preprocessing 
 c = cyan;
-c(nuclei_mask == 1) = 0;
+c(nuclei_msk == 1) = 0;
 
 % Apply K-means clustering to obtain stroma mask
 [~, C] = kmeans(c(:), 3,'Distance','sqeuclidean', 'Replicates', 5);
@@ -35,7 +35,7 @@ cytoplasm_mask = cluster == 3;
 cytoplasm_mask = imdilate(cytoplasm_mask, strel('disk',se_dil));
 cytoplasm_mask = cytoplasm_mask - black_mask;
 cyto = cytoplasm_mask == 1;
-cyto = cyto-nuclei_mask;
+cyto = cyto-nuclei_msk;
 cyto = cyto-stroma_mask;
 cyto = cyto == 1;
 cyto = bwareaopen(cyto, se_open);
@@ -43,4 +43,4 @@ cyto_mask = logical(cyto);
 
 % Overlay
 over = imoverlay(img, cytoplasm_mask, 'green');
-overlay = imoverlay(over, nuclei_mask, 'black');
+overlay = imoverlay(over, nuclei_msk, 'black');

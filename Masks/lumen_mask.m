@@ -1,4 +1,4 @@
-function [lumen_mask, black_mask] = lumen_mask(img,s,lumen_size,se_dil)
+function [lumen_m, black_mask] = lumen_mask(img,s,lumen_size,se_dil)
 
 % set random generator to default;
 rng('default');
@@ -10,7 +10,7 @@ if nargin < 3
 end
 
 % Apply K-means Clustering for lumen
-[~, C] = kmeans(s(:), 3,'Distance','sqeuclidean', 'Replicates', 5);
+[~, C] = kmeans(s(:), 3,'Distance','sqeuclidean');
 [~, ind] = sort(sum(C,2));
 C = C(ind,:); % Centroid coordinates by order
 D = pdist2(s(:), C); 
@@ -22,10 +22,10 @@ lumen = cluster == 1;
 lumen_img = double(lumen); 
 lumen_img = bwareaopen(lumen_img,lumen_size);
 se = strel('disk',se_dil);
-lumen_mask = imdilate(lumen_img,se);
+lumen_m= imdilate(lumen_img,se);
 
 % Background
-black_mask = lumen_mask;
+black_mask = lumen_m;
 [lumen_img, lumen_num] = bwlabel(black_mask);
 for i = 1:lumen_num
     obj = lumen_img == i;

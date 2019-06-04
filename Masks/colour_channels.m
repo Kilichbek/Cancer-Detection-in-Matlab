@@ -1,4 +1,4 @@
-function [r,g,b,cyan,s,H,magenta] = colour_channels(img)
+function [r,g,b,cyan,s,H,magenta,E] = colour_channels(img)
 
 % RGB colour space 
 r = double(img(:,:,1)); 
