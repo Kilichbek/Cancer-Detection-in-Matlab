@@ -1,6 +1,6 @@
 # Prostate Cancer Detection
 
-This is a term project during my course PATTERN RECOGNITION at Sejong University (Spring 2019). The aim of this project to apply different methods and techniques that we had acquired throught the semester to the real world problem. For this purpose, we build a robust system which correctly identifies whether the prostate tissue sample is malignant or benign.
+This is a term project during my course **Pattern Recognition** at Sejong University (Spring 2019). The aim of this project is to apply different methods and techniques that we had acquired throught the semester to the real world problem. For this purpose, we build a robust system which correctly identifies whether the prostate tissue sample is *malignant* or *benign*.
 
 ## Dataset
 
