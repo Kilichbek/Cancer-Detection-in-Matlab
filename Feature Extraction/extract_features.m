@@ -1,5 +1,6 @@
-function [features,response] = extract_features(input_dir)
+function [features,response,ids] = extract_features(input_dir)
 rng('default');
+addpath('Masks');
 
 img_files = dir(fullfile(input_dir,'*.jpg*'));
 
@@ -9,11 +10,13 @@ nfeats = [];
 gfeats = [];
 hfeats = [];
 features = [];
+ids = [];
 
 for i=1:length(img_files)
     
     filename = img_files(i).name;
-    
+    str = sprintf("%s",filename);
+    ids = [ids,str];
     % label the image
     label = filename(1);
     switch label
